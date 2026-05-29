@@ -85,12 +85,21 @@
 
   <p>コピーした内容を貼り付けてください</p>
 
-  <textarea style="width:90%; height:200px;"></textarea>
+  <textarea id="headerInput" style="width:90%; height:200px;"></textarea>
 
-  <br>
+<br>
 
-  <button onclick="alert('解析へ（次ステップ）')">
-    解析する
+<button onclick="analyzeHeader()">
+  解析する
+</button>
+</div>
+
+  <!-- 画面7：結果 -->
+<div id="screen7" class="screen">
+  <div id="result"></div>
+
+  <button onclick="showScreen('screen1')">
+    最初に戻る
   </button>
 </div>
   
@@ -147,6 +156,36 @@ function showGuide(type) {
   } else {
     alert("この環境はまだ準備中です（次ステップで対応）");
   }
+}
+</script>
+
+  <script>
+function analyzeHeader() {
+  const text = document.getElementById("headerInput").value;
+
+  let result = [];
+
+  // 超シンプル判定（MVP）
+  if (!text.includes("spf=pass") && !text.includes("spf")) {
+    result.push("送信元認証（SPF）の情報が確認できません");
+  }
+
+  if (!text.includes("dkim=pass") && !text.includes("dkim")) {
+    result.push("送信者の正当性（DKIM）が確認できません");
+  }
+
+  if (!text.includes("dmarc=pass") && !text.includes("dmarc")) {
+    result.push("なりすまし防止（DMARC）が確認できません");
+  }
+
+  if (result.length === 0) {
+    result.push("明確な不審点は見つかりませんでした");
+  }
+
+  document.getElementById("result").innerHTML =
+    "<h2>解析結果</h2><p>" + result.join("</p><p>") + "</p>";
+
+  showScreen("screen7");
 }
 </script>
   
