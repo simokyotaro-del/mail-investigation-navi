@@ -245,24 +245,48 @@ if (fromMatch) {
   const dkimNone = /dkim\s*=\s*none/.test(text);
 
   if (dkimNone) {
-    issues.push("dkim_none");
-    score += 20;
-  } else if (!dkimPass) {
-    issues.push("dkim_unknown");
-    score += 20;
-  }
+
+  issues.push("dkim_none");
+  score += 20;
+
+  checks.push("改ざんチェック：⚠ 情報不足");
+
+} else if (!dkimPass) {
+
+  issues.push("dkim_unknown");
+  score += 20;
+
+  checks.push("改ざんチェック：⚠ 情報不足");
+
+} else {
+
+  checks.push("改ざんチェック：✅ 正常");
+
+}
 
   /* DMARC */
   const dmarcPass = /dmarc\s*=\s*pass/.test(text);
   const dmarcFail = /dmarc\s*=\s*fail/.test(text);
 
-  if (dmarcFail) {
-    issues.push("dmarc_fail");
-    score += 30;
-  } else if (!dmarcPass) {
-    issues.push("dmarc_unknown");
-    score += 15;
-  }
+ if (dmarcFail) {
+
+  issues.push("dmarc_fail");
+  score += 30;
+
+  checks.push("なりすまし対策：❌ 失敗");
+
+} else if (!dmarcPass) {
+
+  issues.push("dmarc_unknown");
+  score += 15;
+
+  checks.push("なりすまし対策：⚠ 情報不足");
+
+} else {
+
+  checks.push("なりすまし対策：✅ 正常");
+
+}
 
   /* Reply-To */
   if (text.includes("reply-to")) {
