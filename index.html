@@ -38,23 +38,22 @@
       document.getElementById("screen1").classList.remove("active");
       document.getElementById("screen2").classList.add("active");
     }
-
-  function nextScreen() {
-document.getElementById("screen1").classList.remove("active");
-document.getElementById("screen2").classList.add("active");
+　　function nextScreen() {
+　　　document.getElementById("screen1").classList.remove("active");
+　　　document.getElementById("screen2").classList.add("active");
 
 // 2秒後に判定画面へ
-setTimeout(() => {
-document.getElementById("screen2").classList.remove("active");
-document.getElementById("screen3").classList.add("active");
+　　setTimeout(() => {
+　　　document.getElementById("screen2").classList.remove("active");
+　　　document.getElementById("screen3").classList.add("active");
 }, 2000);
 }
 
-function goGuide() {
-alert("ヘッダー取得ガイドへ進みます（次ステップ）");
-}
-
+　　function goGuide() {
+　　　alert("ヘッダー取得ガイドへ進みます（次ステップ）");
+　}
   </script>
+  
 
 </body>
 </html>
