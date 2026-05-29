@@ -209,19 +209,35 @@ if (fromMatch) {
   if (score > 100) score = 100;
 
   /* ラベル判定 */
-  let label = "";
-  let labelClass = "";
-
+let label = "";
+let labelClass = "";
+let summary = "";
+  
   if (score >= 70) {
-    label = "危険";
-    labelClass = "danger";
-  } else if (score >= 40) {
-    label = "注意";
-    labelClass = "warn";
-  } else {
-    label = "安全（目安）";
-    labelClass = "safe";
-  }
+
+  label = "危険";
+  labelClass = "danger";
+
+  summary =
+    "このメールには複数の注意点が見つかりました。内容をよく確認してください。";
+
+} else if (score >= 40) {
+
+  label = "注意";
+  labelClass = "warn";
+
+  summary =
+    "このメールには確認をおすすめする項目があります。";
+
+} else {
+
+  label = "低";
+  labelClass = "safe";
+
+  summary =
+    "大きな不審点は検出されませんでした。ただし、この結果は安全性を保証するものではありません。";
+
+}
 
   /* 説明文生成 */
   if (issues.includes("spf_fail")) {
@@ -257,29 +273,13 @@ if (fromMatch) {
   }
 
   /* 表示 */
-  document.getElementById("result").innerHTML = `
-  <div class="badge ${labelClass}">
-    危険度：${score} / 100（${label}）
-  </div>
-
-  <div style="
-    border:1px solid #ccc;
-    padding:15px;
-    margin:15px 0;
-    border-radius:8px;
-  ">
-    <strong>総評</strong>
-    <br><br>
-    ${summary}
-  </div>
-
-  <div>
-    <strong>確認された項目</strong>
-    <br><br>
-    ${messages.join("<br>")}
-  </div>
+ document.getElementById("result").innerHTML = `
+  ...
 `;
 
+showScreen('screen5');
+
+}
 </script>
 
 </body>
