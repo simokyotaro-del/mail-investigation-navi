@@ -55,12 +55,46 @@
     <button onclick="goGuide()">いいえ</button>
   </div>
 
-  <!-- 画面4（仮：ガイド） -->
-  <div id="screen4" class="screen">
-    <h1>ヘッダー取得ガイド</h1>
-    <p>ここに取得手順を表示します</p>
-  </div>
+  <!-- 画面4：ガイド選択 -->
+<div id="screen4" class="screen">
+  <h1>メールアプリを選択</h1>
+  <p>あなたの環境を選んでください</p>
 
+  <button onclick="showGuide('iphone')">Gmail（iPhone）</button>
+  <button onclick="showGuide('android')">Gmail（Android）</button>
+  <button onclick="showGuide('other')">その他</button>
+</div>
+
+  <!-- 画面5：iPhoneガイド -->
+<div id="screen5" class="screen">
+  <h1>Gmail（iPhone）手順</h1>
+
+  <p>① Gmailアプリで対象メールを開く</p>
+  <p>② 右上の「…」を押す</p>
+  <p>③ 「元のメッセージを表示」を選択</p>
+  <p>④ 表示された内容をすべてコピー</p>
+
+  <button onclick="showScreen('screen6')">
+    ヘッダーを貼り付ける
+  </button>
+</div>
+
+  <!-- 画面6：ヘッダー入力 -->
+<div id="screen6" class="screen">
+  <h1>ヘッダー入力</h1>
+
+  <p>コピーした内容を貼り付けてください</p>
+
+  <textarea style="width:90%; height:200px;"></textarea>
+
+  <br>
+
+  <button onclick="alert('解析へ（次ステップ）')">
+    解析する
+  </button>
+</div>
+  
+  
   <script>
     // 安全に画面切替する関数（重要）
     function showScreen(id) {
@@ -90,6 +124,32 @@
       showScreen("screen4");
     }
   </script>
+
+  <script>
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => {
+    s.classList.remove("active");
+  });
+  document.getElementById(id).classList.add("active");
+}
+
+function nextFlow() {
+  showScreen("screen2");
+
+  setTimeout(() => {
+    showScreen("screen4");
+  }, 2000);
+}
+
+function showGuide(type) {
+  if (type === "iphone") {
+    showScreen("screen5");
+  } else {
+    alert("この環境はまだ準備中です（次ステップで対応）");
+  }
+}
+</script>
+  
 
 </body>
 </html>
