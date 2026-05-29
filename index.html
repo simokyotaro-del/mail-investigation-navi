@@ -93,6 +93,36 @@
 <!-- 画面5 -->
 <div id="screen5" class="screen">
   <div id="result" class="result"></div>
+  <!-- ヘッダー取得ガイド -->
+<div id="screenGuide" class="screen">
+
+  <h1>ヘッダー取得方法</h1>
+
+  <h2>Gmail</h2>
+
+  <p>
+    メールを開く
+    ↓
+    右上の「︙」
+    ↓
+    「メッセージのソースを表示」
+    ↓
+    全文コピー
+  </p>
+
+  <h2>Outlook</h2>
+
+  <p>
+    メールを開く
+    ↓
+    その他操作
+    ↓
+    メッセージのソース表示
+  </p>
+
+  <button onclick="showScreen('screen4')">
+    戻る
+  </button>
 
   <button onclick="showScreen('screen1')">最初に戻る</button>
 </div>
@@ -335,36 +365,6 @@ document.getElementById("result").innerHTML = `
     ${messages.join("<br>")}
   </div>
 `;
-<!-- ヘッダー取得ガイド -->
-<div id="screenGuide" class="screen">
-
-  <h1>ヘッダー取得方法</h1>
-
-  <h2>Gmail</h2>
-
-  <p>
-    メールを開く
-    ↓
-    右上の「︙」
-    ↓
-    「メッセージのソースを表示」
-    ↓
-    全文コピー
-  </p>
-
-  <h2>Outlook</h2>
-
-  <p>
-    メールを開く
-    ↓
-    その他操作
-    ↓
-    メッセージのソース表示
-  </p>
-
-  <button onclick="showScreen('screen4')">
-    戻る
-  </button>
 
 </div>
 showScreen('screen5');
