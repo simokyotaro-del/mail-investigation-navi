@@ -101,16 +101,18 @@ function analyzeHeader(){
 
   const text = document.getElementById("headerInput").value.toLowerCase();
 
-  let findings = [];
+  let issues = [];
+
+  let explanation = [];
 
   /* SPF */
   const spfPass = /spf\s*=\s*pass/.test(text);
   const spfFail = /spf\s*=\s*fail/.test(text);
 
   if (spfFail) {
-    findings.push("❌ SPF失敗（送信元が偽装の可能性）");
+    issues.push("SPF_FAIL");
   } else if (!spfPass) {
-    findings.push("⚠ SPF情報が見つかりません");
+    issues.push("SPF_UNKNOWN");
   }
 
   /* DKIM */
@@ -118,9 +120,9 @@ function analyzeHeader(){
   const dkimNone = /dkim\s*=\s*none/.test(text);
 
   if (dkimNone) {
-    findings.push("⚠ DKIMなし（署名未確認）");
+    issues.push("DKIM_NONE");
   } else if (!dkimPass) {
-    findings.push("⚠ DKIM情報が不明");
+    issues.push("DKIM_UNKNOWN");
   }
 
   /* DMARC */
@@ -128,37 +130,68 @@ function analyzeHeader(){
   const dmarcFail = /dmarc\s*=\s*fail/.test(text);
 
   if (dmarcFail) {
-    findings.push("❌ DMARC失敗（なりすまし可能性高）");
+    issues.push("DMARC_FAIL");
   } else if (!dmarcPass) {
-    findings.push("⚠ DMARC情報が見つかりません");
+    issues.push("DMARC_UNKNOWN");
   }
 
   /* Reply-To */
-  if (text.includes("reply-to")) {
-    const match = text.match(/from:.*@(.+)\s/);
-    const replyMatch = text.match(/reply-to:.*@(.+)\s/);
+  const from = text.match(/from:.*@([a-z0-9.\-]+)/);
+  const reply = text.match(/reply-to:.*@([a-z0-9.\-]+)/);
 
-    if (match && replyMatch && match[1] !== replyMatch[1]) {
-      findings.push("❌ Reply-Toと送信元ドメインが不一致");
-    }
+  if (from && reply && from[1] !== reply[1]) {
+    issues.push("REPLY_MISMATCH");
   }
 
-  /* Received怪しさ */
-  if (text.includes("unknown") || text.includes("ru") || text.includes("185.")) {
-    findings.push("❌ 送信経路に不審なIP/ドメイン");
+  /* IP系 */
+  if (text.includes("unknown") || text.includes("185.") || text.includes("ru")) {
+    issues.push("SUSPICIOUS_SOURCE");
   }
 
-  /* 結果なし対策 */
-  if (findings.length === 0) {
-    findings.push("ℹ 明確な不審点は検出されませんでした");
+  /* 日本語変換 */
+  let resultText = [];
+
+  if (issues.includes("SPF_FAIL")) {
+    resultText.push("・送信元が正規のサーバーではない可能性があります（SPF失敗）");
+  }
+
+  if (issues.includes("SPF_UNKNOWN")) {
+    resultText.push("・送信元の正当性が確認できません（SPF情報なし）");
+  }
+
+  if (issues.includes("DKIM_NONE")) {
+    resultText.push("・メールの改ざん検証ができません（DKIMなし）");
+  }
+
+  if (issues.includes("DKIM_UNKNOWN")) {
+    resultText.push("・メールの改ざん確認情報が不足しています（DKIM不明）");
+  }
+
+  if (issues.includes("DMARC_FAIL")) {
+    resultText.push("・なりすまし対策に失敗している可能性があります（DMARC失敗）");
+  }
+
+  if (issues.includes("DMARC_UNKNOWN")) {
+    resultText.push("・なりすまし対策情報が確認できません（DMARCなし）");
+  }
+
+  if (issues.includes("REPLY_MISMATCH")) {
+    resultText.push("・返信先が送信元と一致していません（詐欺でよくある特徴）");
+  }
+
+  if (issues.includes("SUSPICIOUS_SOURCE")) {
+    resultText.push("・送信元に不審な痕跡があります（IPまたはドメイン）");
+  }
+
+  if (resultText.length === 0) {
+    resultText.push("大きな不審点は検出されませんでした。ただし完全な安全保証ではありません。");
   }
 
   document.getElementById("result").innerHTML =
-    "<h2>検出結果</h2><br>" + findings.join("<br>");
+    "<h2>解析結果</h2><br>" + resultText.join("<br>");
 
   showScreen("screen5");
 }
-
 </script>
 
 </body>
