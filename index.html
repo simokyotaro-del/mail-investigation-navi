@@ -129,6 +129,42 @@ function analyzeHeader(){
     score += 20;
   }
 
+  /* ドメイン不一致検出 */
+
+const fromMatch = text.match(/from:.*@([a-z0-9.\-]+)/);
+
+if (fromMatch) {
+
+  const senderDomain = fromMatch[1];
+
+  const suspiciousKeywords = [
+    "amazon",
+    "paypal",
+    "apple",
+    "microsoft",
+    "rakuten",
+    "yahoo",
+    "google"
+  ];
+
+  suspiciousKeywords.forEach(keyword => {
+
+    if (
+      senderDomain.includes(keyword) &&
+      !senderDomain.endsWith(keyword + ".com") &&
+      !senderDomain.endsWith(keyword + ".co.jp") &&
+      !senderDomain.endsWith(keyword + ".jp")
+    ) {
+
+      issues.push("brand_domain_mismatch");
+      score += 30;
+
+    }
+
+  });
+
+}
+
   /* DKIM */
   const dkimPass = /dkim\s*=\s*pass/.test(text);
   const dkimNone = /dkim\s*=\s*none/.test(text);
@@ -212,6 +248,9 @@ function analyzeHeader(){
   if (issues.includes("suspicious_source")) {
     messages.push("・送信元に不審な痕跡があります（IP/ドメイン）");
   }
+  if (issues.includes("brand_domain_mismatch")) {
+  messages.push("・有名サービスを装ったドメインの可能性があります");
+　}
 
   if (messages.length === 0) {
     messages.push("明確な不審点は検出されませんでした。ただし完全な安全保証ではありません。");
