@@ -1,59 +1,95 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <title>メール調査ナビ</title>
+
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 40px; }
-    .screen { display: none; }
-    .active { display: block; }
-    button { font-size: 20px; padding: 15px 30px; margin-top: 20px; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 15px 30px;
+      margin: 10px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
 
   <!-- 画面1 -->
-
   <div id="screen1" class="screen active">
     <h1>メール調査ナビ</h1>
     <p>怪しいメールかどうかを確認します</p>
 
-```
-<button onclick="nextScreen()">📷 スクショを選ぶ</button>
-```
-
+    <button onclick="nextFlow()">
+      📷 スクショを選ぶ
+    </button>
   </div>
 
   <!-- 画面2 -->
-
   <div id="screen2" class="screen">
     <h1>解析中...</h1>
     <p>メールを確認しています</p>
   </div>
 
+  <!-- 画面3 -->
+  <div id="screen3" class="screen">
+    <h1>メールアプリ判定</h1>
+    <p>このメールはGmailですか？</p>
+
+    <button onclick="goGuide()">はい</button>
+    <button onclick="goGuide()">いいえ</button>
+  </div>
+
+  <!-- 画面4（仮：ガイド） -->
+  <div id="screen4" class="screen">
+    <h1>ヘッダー取得ガイド</h1>
+    <p>ここに取得手順を表示します</p>
+  </div>
+
   <script>
-    function nextScreen() {
-      document.getElementById("screen1").classList.remove("active");
-      document.getElementById("screen2").classList.add("active");
+    // 安全に画面切替する関数（重要）
+    function showScreen(id) {
+      const screens = document.querySelectorAll(".screen");
+
+      screens.forEach(s => {
+        s.classList.remove("active");
+      });
+
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add("active");
+      }
     }
-　　function nextScreen() {
-　　　document.getElementById("screen1").classList.remove("active");
-　　　document.getElementById("screen2").classList.add("active");
 
-// 2秒後に判定画面へ
-　　setTimeout(() => {
-　　　document.getElementById("screen2").classList.remove("active");
-　　　document.getElementById("screen3").classList.add("active");
-}, 2000);
-}
+    // スタートフロー
+    function nextFlow() {
+      showScreen("screen2");
 
-　　function goGuide() {
-　　　alert("ヘッダー取得ガイドへ進みます（次ステップ）");
-　}
+      setTimeout(() => {
+        showScreen("screen3");
+      }, 2000);
+    }
+
+    // ガイドへ
+    function goGuide() {
+      showScreen("screen4");
+    }
   </script>
-  
 
 </body>
 </html>
