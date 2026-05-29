@@ -75,6 +75,14 @@
 
   <p>ヘッダーを貼り付けてください</p>
 
+<p>
+  ヘッダーの取得方法が分からない場合は
+  下の案内を確認してください。
+</p>
+
+<button onclick="showScreen('screenGuide')">
+  ヘッダー取得方法を見る
+</button>
   <textarea id="headerInput"></textarea>
 
   <br>
@@ -327,7 +335,38 @@ document.getElementById("result").innerHTML = `
     ${messages.join("<br>")}
   </div>
 `;
+<!-- ヘッダー取得ガイド -->
+<div id="screenGuide" class="screen">
 
+  <h1>ヘッダー取得方法</h1>
+
+  <h2>Gmail</h2>
+
+  <p>
+    メールを開く
+    ↓
+    右上の「︙」
+    ↓
+    「メッセージのソースを表示」
+    ↓
+    全文コピー
+  </p>
+
+  <h2>Outlook</h2>
+
+  <p>
+    メールを開く
+    ↓
+    その他操作
+    ↓
+    メッセージのソース表示
+  </p>
+
+  <button onclick="showScreen('screen4')">
+    戻る
+  </button>
+
+</div>
 showScreen('screen5');
 
 }
