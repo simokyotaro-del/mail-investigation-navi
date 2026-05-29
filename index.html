@@ -93,7 +93,7 @@
 <!-- 画面5 -->
 <div id="screen5" class="screen">
   <div id="result" class="result"></div>
-  <!-- ヘッダー取得ガイド -->
+ <!-- ヘッダー取得ガイド -->
 <div id="screenGuide" class="screen">
 
   <h1>ヘッダー取得方法</h1>
@@ -120,6 +120,20 @@
     メッセージのソース表示
   </p>
 
+  <button onclick="showScreen('screen4')">
+    戻る
+  </button>
+
+</div>
+
+<!-- 画面5 -->
+<div id="screen5" class="screen">
+  <div id="result" class="result"></div>
+
+  <button onclick="showScreen('screen1')">
+    最初に戻る
+  </button>
+</div>
   <button onclick="showScreen('screen4')">
     戻る
   </button>
@@ -366,7 +380,6 @@ document.getElementById("result").innerHTML = `
   </div>
 `;
 
-</div>
 showScreen('screen5');
 
 }
