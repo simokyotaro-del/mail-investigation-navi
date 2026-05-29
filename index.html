@@ -241,8 +241,7 @@ let summary = "";
   summary =
     "この情報だけでは正確な判定ができません。完全なメールヘッダーを取得してください。";
 
-}
-  if (score >= 70) {
+} else if (score >= 70) {
 
   label = "危険";
   labelClass = "danger";
@@ -267,7 +266,6 @@ let summary = "";
     "大きな不審点は検出されませんでした。ただし、この結果は安全性を保証するものではありません。";
 
 }
-
   /* 説明文生成 */
   if (issues.includes("spf_fail")) {
     messages.push("・送信元が正規サーバーではない可能性（SPF失敗）");
