@@ -117,6 +117,23 @@ function analyzeHeader(){
   let messages = [];
   let score = 0;
 
+  /* 情報不足判定 */
+
+  const headerIndicators = [
+    "authentication-results",
+    "received:",
+    "return-path:",
+    "message-id:"
+];
+
+let foundIndicators = 0;
+
+headerIndicators.forEach(item => {
+  if (text.includes(item)) {
+    foundIndicators++;
+  }
+});
+
   /* SPF */
   const spfPass = /spf\s*=\s*pass/.test(text);
   const spfFail = /spf\s*=\s*fail/.test(text);
@@ -207,12 +224,24 @@ if (fromMatch) {
   }
 
   if (score > 100) score = 100;
+  if (foundIndicators < 2) {
+  issues.push("insufficient_data");
+}
 
   /* ラベル判定 */
 let label = "";
 let labelClass = "";
 let summary = "";
   
+  if (issues.includes("insufficient_data")) {
+
+  label = "情報不足";
+  labelClass = "warn";
+
+  summary =
+    "この情報だけでは正確な判定ができません。完全なメールヘッダーを取得してください。";
+
+}
   if (score >= 70) {
 
   label = "危険";
@@ -266,6 +295,11 @@ let summary = "";
   }
   if (issues.includes("brand_domain_mismatch")) {
   messages.push("・有名サービスを装ったドメインの可能性があります");
+}
+  if (issues.includes("insufficient_data")) {
+  messages.push(
+    "・判定に必要な情報が不足しています。完全なヘッダーを取得してください。"
+  );
 }
 
   if (messages.length === 0) {
