@@ -160,6 +160,7 @@ function analyzeHeader(){
 
   let issues = [];
   let messages = [];
+  let checks = [];
   let score = 0;
 
   /* 情報不足判定 */
@@ -184,12 +185,22 @@ headerIndicators.forEach(item => {
   const spfFail = /spf\s*=\s*fail/.test(text);
 
   if (spfFail) {
-    issues.push("spf_fail");
-    score += 40;
-  } else if (!spfPass) {
-    issues.push("spf_unknown");
-    score += 20;
-  }
+
+  issues.push("spf_fail");
+  score += 40;
+
+  checks.push("送信元確認：❌ 失敗");
+
+} else if (!spfPass) {
+
+  issues.push("spf_unknown");
+  score += 20;
+
+  checks.push("送信元確認：⚠ 情報不足");
+
+} else {
+
+  checks.push("送信元確認：✅ 正常");
 
   /* ドメイン不一致検出 */
 
