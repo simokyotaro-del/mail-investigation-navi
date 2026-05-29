@@ -4,24 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <title>メール調査ナビ</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 40px; }
+    .screen { display: none; }
+    .active { display: block; }
+    button { font-size: 20px; padding: 15px 30px; margin-top: 20px; }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding: 40px;">
 
-  <h1>メール調査ナビ</h1>
+<body>
 
-  <p>怪しいメールかどうかを確認します</p>
+  <!-- 画面1 -->
 
-  <button style="font-size:20px; padding:15px 30px;">
-    📷 スクショを選ぶ
-  </button>
+  <div id="screen1" class="screen active">
+    <h1>メール調査ナビ</h1>
+    <p>怪しいメールかどうかを確認します</p>
 
-  <div style="margin-top:30px;">
-    <small>
-      詳細情報をお持ちの場合：
-      <br>
-      ヘッダー貼り付け / .emlファイル
-    </small>
+```
+<button onclick="nextScreen()">📷 スクショを選ぶ</button>
+```
+
   </div>
+
+  <!-- 画面2 -->
+
+  <div id="screen2" class="screen">
+    <h1>解析中...</h1>
+    <p>メールを確認しています</p>
+  </div>
+
+  <script>
+    function nextScreen() {
+      document.getElementById("screen1").classList.remove("active");
+      document.getElementById("screen2").classList.add("active");
+    }
+  </script>
 
 </body>
 </html>
