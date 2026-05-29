@@ -404,11 +404,15 @@ document.getElementById("result").innerHTML = `
   </div>
 
   <div>
-    <strong>確認された項目</strong>
-    <br><br>
-    ${messages.join("<br>")}
-  </div>
-`;
+    <strong>確認結果</strong>
+<br><br>
+${checks.join("<br>")}
+
+<br><br>
+
+<strong>詳細</strong>
+<br><br>
+${messages.join("<br>")}
 
 showScreen('screen5');
 
