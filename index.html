@@ -386,7 +386,7 @@ let summary = "";
     messages.push("明確な不審点は検出されませんでした。ただし完全な安全保証ではありません。");
   }
 
- /* 表示 */
+/* 表示 */
 document.getElementById("result").innerHTML = `
   <div class="badge ${labelClass}">
     危険度：${score} / 100（${label}）
@@ -405,14 +405,16 @@ document.getElementById("result").innerHTML = `
 
   <div>
     <strong>確認結果</strong>
-<br><br>
-${checks.join("<br>")}
+    <br><br>
+    ${checks.join("<br>")}
 
-<br><br>
+    <br><br>
 
-<strong>詳細</strong>
-<br><br>
-${messages.join("<br>")}
+    <strong>詳細</strong>
+    <br><br>
+    ${messages.join("<br>")}
+  </div>
+`;
 
 showScreen('screen5');
 
