@@ -393,19 +393,26 @@ document.getElementById("result").innerHTML = `
   </div>
 
   <div style="
-    width:100%;
+  width:100%;
+  height:24px;
+  background:#ddd;
+  border-radius:12px;
+  margin:15px 0;
+">
+
+  <div style="
+    width:${score}%;
     height:24px;
-    background:#eee;
+    background:red;
     border-radius:12px;
-    overflow:hidden;
-    margin:15px 0;
   ">
-    <div style="
-      width:${score}%;
-      height:100%;
-      background:red;
-    "></div>
   </div>
+
+</div>
+
+<div>
+  DEBUG score=${score}
+</div>
 
   <div style="
     border:1px solid #ccc;
