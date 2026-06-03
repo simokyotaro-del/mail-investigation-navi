@@ -323,8 +323,8 @@ let advice = [];
 
   summary =
     "この情報だけでは正確な判定ができません。完全なメールヘッダーを取得してください。";
- 　　 advice.push("✅ 完全なメールヘッダーを取得してください");
-　　　advice.push("✅ GmailやOutlookのソース表示を利用してください");
+    advice.push("✅ 完全なメールヘッダーを取得してください");
+    advice.push("✅ GmailやOutlookのソース表示を利用してください");
 
 } else if (score >= 70) {
 
@@ -334,8 +334,8 @@ let advice = [];
   summary =
     "このメールには複数の注意点が見つかりました。内容をよく確認してください。";
     advice.push("❌ メール内のリンクを開かない");
-　　advice.push("❌ 添付ファイルを開かない");
-　　advice.push("✅ 公式サイトから直接確認する");
+    advice.push("❌ 添付ファイルを開かない");
+    advice.push("✅ 公式サイトから直接確認する");
 
 } else if (score >= 40) {
 
@@ -345,8 +345,8 @@ let advice = [];
   summary =
     "このメールには確認をおすすめする項目があります。";
     advice.push("⚠ 内容を慎重に確認する");
-　　advice.push("⚠ 送信元を確認する");
-　　advice.push("✅ 公式サイトで確認する");
+    advice.push("⚠ 送信元を確認する");
+    advice.push("✅ 公式サイトで確認する");
 
 } else {
 
@@ -356,7 +356,7 @@ let advice = [];
   summary =
     "大きな不審点は検出されませんでした。ただし、この結果は安全性を保証するものではありません。";
     advice.push("✅ 現時点では大きな問題は見つかりません");
-　　advice.push("⚠ 不審な内容があれば引き続き注意してください");
+    advice.push("⚠ 不審な内容があれば引き続き注意してください");
 
 }
   /* 説明文生成 */
@@ -446,12 +446,13 @@ document.getElementById("result").innerHTML = `
     border-radius:8px;
     background:#fafafa;
   ">
-    <strong>詳細</strong>
-    <br><br>
-    ${messages.join("<br>")}
-  </div>
-`;
-  <div style="
+   <strong>詳細</strong>
+<br><br>
+${messages.join("<br>")}
+
+</div>
+
+<div style="
   border:1px solid #ddd;
   padding:15px;
   margin:15px 0;
@@ -462,6 +463,8 @@ document.getElementById("result").innerHTML = `
   <br><br>
   ${advice.join("<br>")}
 </div>
+`;
+
 
 showScreen('screen5');
 
