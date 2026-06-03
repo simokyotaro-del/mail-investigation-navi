@@ -392,23 +392,19 @@ document.getElementById("result").innerHTML = `
     危険度：${score} / 100（${label}）
   </div>
 
-  <div style="
-  width:100%;
+<div style="
+  width:${score}%;
   height:24px;
-  background:#e0e0e0;
   border-radius:12px;
-  overflow:hidden;
   margin:15px 0;
+  background:${
+    score >= 70 ? '#d32f2f' :
+    score >= 40 ? '#f57c00' :
+    '#388e3c'
+  };
 ">
- <div style="
-    width:${score}%;
-    height:24px;
-    background:red;
-    display:block;
-">
-    &nbsp;
 </div>
-</div>
+
   <div style="
     border:1px solid #ccc;
     padding:15px;
