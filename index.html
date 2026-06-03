@@ -314,6 +314,7 @@ if (fromMatch) {
 let label = "";
 let labelClass = "";
 let summary = "";
+let advice = [];
   
   if (issues.includes("insufficient_data")) {
 
@@ -322,6 +323,8 @@ let summary = "";
 
   summary =
     "この情報だけでは正確な判定ができません。完全なメールヘッダーを取得してください。";
+ 　　 advice.push("✅ 完全なメールヘッダーを取得してください");
+　　　advice.push("✅ GmailやOutlookのソース表示を利用してください");
 
 } else if (score >= 70) {
 
@@ -330,6 +333,9 @@ let summary = "";
 
   summary =
     "このメールには複数の注意点が見つかりました。内容をよく確認してください。";
+    advice.push("❌ メール内のリンクを開かない");
+　　advice.push("❌ 添付ファイルを開かない");
+　　advice.push("✅ 公式サイトから直接確認する");
 
 } else if (score >= 40) {
 
@@ -338,6 +344,9 @@ let summary = "";
 
   summary =
     "このメールには確認をおすすめする項目があります。";
+    advice.push("⚠ 内容を慎重に確認する");
+　　advice.push("⚠ 送信元を確認する");
+　　advice.push("✅ 公式サイトで確認する");
 
 } else {
 
@@ -346,6 +355,8 @@ let summary = "";
 
   summary =
     "大きな不審点は検出されませんでした。ただし、この結果は安全性を保証するものではありません。";
+    advice.push("✅ 現時点では大きな問題は見つかりません");
+　　advice.push("⚠ 不審な内容があれば引き続き注意してください");
 
 }
   /* 説明文生成 */
@@ -440,6 +451,17 @@ document.getElementById("result").innerHTML = `
     ${messages.join("<br>")}
   </div>
 `;
+  <div style="
+  border:1px solid #ddd;
+  padding:15px;
+  margin:15px 0;
+  border-radius:8px;
+  background:#f8f8f8;
+">
+  <strong>推奨対応</strong>
+  <br><br>
+  ${advice.join("<br>")}
+</div>
 
 showScreen('screen5');
 
