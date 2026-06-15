@@ -42,6 +42,9 @@
   .safe { color: green; }
   .warn { color: orange; }
   .danger { color: red; }
+  .info {
+  color: #757575;
+}  
 </style>
 </head>
 
@@ -315,15 +318,18 @@ let label = "";
 let labelClass = "";
 let summary = "";
 let icon = "";
-let barColor = "";  
-let advice = [];
+let barColor = "";
+let advice = [];  
+
+let scoreDisplay = "";
+let scoreBar = "";
+
   
   if (issues.includes("insufficient_data")) {
 
-  label = "情報不足";
-　labelClass = "warn";
-　icon = "❓";
-　barColor = "#757575";
+ label = "情報不足";
+ labelClass = "info";
+ icon = "❓";
 
   summary =
     "この情報だけでは正確な判定ができません。完全なメールヘッダーを取得してください。";
@@ -333,9 +339,9 @@ let advice = [];
 } else if (score >= 70) {
 
   label = "危険";
-　labelClass = "danger";
-　icon = "🔴";
-　barColor = "#d32f2f";
+  labelClass = "danger";
+  icon = "🔴";
+  barColor = "#d32f2f";
 
   summary =
     "このメールには複数の注意点が見つかりました。内容をよく確認してください。";
@@ -346,9 +352,9 @@ let advice = [];
 } else if (score >= 40) {
 
   label = "注意";
-　labelClass = "warn";
-　icon = "🟡";
-　barColor = "#f57c00";
+  labelClass = "warn";
+  icon = "🟡";
+  barColor = "#f57c00";
 
   summary =
     "このメールには確認をおすすめする項目があります。";
@@ -359,9 +365,9 @@ let advice = [];
 } else {
 
   label = "低";
-　labelClass = "safe";
-　icon = "🟢";
-　barColor = "#388e3c";
+  labelClass = "safe";
+  icon = "🟢";
+  barColor = "#388e3c";
     
   summary =
     "大きな不審点は検出されませんでした。ただし、この結果は安全性を保証するものではありません。";
@@ -369,6 +375,38 @@ let advice = [];
     advice.push("⚠ 不審な内容があれば引き続き注意してください");
 
 }
+
+  if (label === "情報不足") {
+
+  scoreDisplay = `
+    <div class="badge info">
+      ❓ 情報不足
+    </div>
+  `;
+
+  scoreBar = "";
+
+} else {
+
+  scoreDisplay = `
+    <div class="badge ${labelClass}">
+      ${icon} 危険度：${score} / 100（${label}）
+    </div>
+  `;
+
+  scoreBar = `
+    <div style="
+      width:${score}%;
+      height:24px;
+      border-radius:12px;
+      margin:15px 0;
+      background:${barColor};
+    ">
+    </div>
+  `;
+}
+
+
   /* 説明文生成 */
   if (issues.includes("spf_fail")) {
     messages.push("・送信元が正規サーバーではない可能性（SPF失敗）");
@@ -409,18 +447,8 @@ let advice = [];
 
 /* 表示 */
 document.getElementById("result").innerHTML = `
-  <div class="badge ${labelClass}">
-  ${icon} 危険度：${score} / 100（${label}）
-</div>
-
-<div style="
-  width:${score}%;
-  height:24px;
-  border-radius:12px;
-  margin:15px 0;
-  background:${barColor};
-">
-</div>
+ ${scoreDisplay}
+${scoreBar}
 
   <div style="
     border:1px solid #ccc;
