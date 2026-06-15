@@ -32,9 +32,64 @@
   <button onclick="showScreen('screen4')">いいえ</button>
 </div>
 
-<!-- 以下はそのまま -->
+<!-- 画面4 -->
+<div id="screen4" class="screen">
 
-...
+  <h1>ヘッダー入力</h1>
+
+  <p>ヘッダーを貼り付けてください</p>
+
+  <p>
+    ヘッダーの取得方法が分からない場合は
+    下の案内を確認してください。
+  </p>
+
+  <button onclick="showScreen('screenGuide')">
+    ヘッダー取得方法を見る
+  </button>
+
+  <textarea id="headerInput"></textarea>
+
+  <br>
+
+  <button onclick="analyzeHeader()">
+    解析する
+  </button>
+
+</div>
+
+<!-- ヘッダー取得ガイド -->
+<div id="screenGuide" class="screen">
+
+  <h1>ヘッダー取得方法</h1>
+
+  <h2>Gmail</h2>
+
+  <p>
+    メールを開く<br>
+    ↓<br>
+    右上の「︙」<br>
+    ↓<br>
+    「メッセージのソースを表示」<br>
+    ↓<br>
+    全文コピー
+  </p>
+
+  <h2>Outlook</h2>
+
+  <p>
+    メールを開く<br>
+    ↓<br>
+    その他操作<br>
+    ↓<br>
+    メッセージのソース表示
+  </p>
+
+  <button onclick="showScreen('screen4')">
+    戻る
+  </button>
+
+</div>
 
 <!-- 画面5 -->
 <div id="screen5" class="screen">
