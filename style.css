@@ -1,1 +1,42 @@
+<style>
+  body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 30px;
+  }
 
+  .screen { display: none; }
+  .active { display: block; }
+
+  button {
+    font-size: 18px;
+    padding: 12px 20px;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  textarea {
+    width: 90%;
+    height: 200px;
+  }
+
+  .result {
+    text-align: left;
+    width: 90%;
+    margin: 0 auto;
+    white-space: pre-wrap;
+  }
+
+  .badge {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .safe { color: green; }
+  .warn { color: orange; }
+  .danger { color: red; }
+  .info {
+  color: #757575;
+}  
+</style>
