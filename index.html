@@ -314,12 +314,14 @@ if (fromMatch) {
 let label = "";
 let labelClass = "";
 let summary = "";
+let icon = "";  
 let advice = [];
   
   if (issues.includes("insufficient_data")) {
 
   label = "情報不足";
   labelClass = "warn";
+  icon = "⚪";
 
   summary =
     "この情報だけでは正確な判定ができません。完全なメールヘッダーを取得してください。";
@@ -330,6 +332,7 @@ let advice = [];
 
   label = "危険";
   labelClass = "danger";
+  icon = "🔴";
 
   summary =
     "このメールには複数の注意点が見つかりました。内容をよく確認してください。";
@@ -341,6 +344,7 @@ let advice = [];
 
   label = "注意";
   labelClass = "warn";
+  icon = "🟡";
 
   summary =
     "このメールには確認をおすすめする項目があります。";
@@ -352,6 +356,7 @@ let advice = [];
 
   label = "低";
   labelClass = "safe";
+  icon = "🟢";
 
   summary =
     "大きな不審点は検出されませんでした。ただし、この結果は安全性を保証するものではありません。";
@@ -400,8 +405,8 @@ let advice = [];
 /* 表示 */
 document.getElementById("result").innerHTML = `
   <div class="badge ${labelClass}">
-    危険度：${score} / 100（${label}）
-  </div>
+  ${icon} 危険度：${score} / 100（${label}）
+</div>
 
 <div style="
   width:${score}%;
