@@ -314,14 +314,16 @@ if (fromMatch) {
 let label = "";
 let labelClass = "";
 let summary = "";
-let icon = "";  
+let icon = "";
+let barColor = "";  
 let advice = [];
   
   if (issues.includes("insufficient_data")) {
 
   label = "情報不足";
-  labelClass = "warn";
-  icon = "⚪";
+　labelClass = "warn";
+　icon = "❓";
+　barColor = "#757575";
 
   summary =
     "この情報だけでは正確な判定ができません。完全なメールヘッダーを取得してください。";
@@ -331,8 +333,9 @@ let advice = [];
 } else if (score >= 70) {
 
   label = "危険";
-  labelClass = "danger";
-  icon = "🔴";
+　labelClass = "danger";
+　icon = "🔴";
+　barColor = "#d32f2f";
 
   summary =
     "このメールには複数の注意点が見つかりました。内容をよく確認してください。";
@@ -343,8 +346,9 @@ let advice = [];
 } else if (score >= 40) {
 
   label = "注意";
-  labelClass = "warn";
-  icon = "🟡";
+　labelClass = "warn";
+　icon = "🟡";
+　barColor = "#f57c00";
 
   summary =
     "このメールには確認をおすすめする項目があります。";
@@ -355,9 +359,10 @@ let advice = [];
 } else {
 
   label = "低";
-  labelClass = "safe";
-  icon = "🟢";
-
+　labelClass = "safe";
+　icon = "🟢";
+　barColor = "#388e3c";
+    
   summary =
     "大きな不審点は検出されませんでした。ただし、この結果は安全性を保証するものではありません。";
     advice.push("✅ 現時点では大きな問題は見つかりません");
@@ -413,11 +418,7 @@ document.getElementById("result").innerHTML = `
   height:24px;
   border-radius:12px;
   margin:15px 0;
-  background:${
-    score >= 70 ? '#d32f2f' :
-    score >= 40 ? '#f57c00' :
-    '#388e3c'
-  };
+  background:${barColor};
 ">
 </div>
 
