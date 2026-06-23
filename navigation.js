@@ -8,19 +8,19 @@ function showScreen(id){
   document.getElementById(id).classList.add('active');
 }
 
-function nextFlow(){
+async function nextFlow(){
 
-  const file =
-    document.getElementById("imageInput")
-.addEventListener("change", function(e){
-
-  selectedImage = e.target.files[0];
-
-});
-  if(!file){
-    alert("スクリーンショットを選択してください");
+  if(!selectedImage){
+    alert("画像を選択してください");
     return;
   }
+
+  const text =
+    await extractTextFromImage(selectedImage);
+
+  console.log(text);
+
+}
 
   showScreen("screen2");
 
