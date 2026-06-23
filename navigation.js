@@ -1,41 +1,24 @@
 let selectedImage = null;
 
+/* 画面切替 */
 function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>{
-    s.classList.remove('active');
+
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
   });
 
-  document.getElementById(id).classList.add('active');
+  document.getElementById(id)
+    .classList.add("active");
 }
 
-async function nextFlow(){
-
-  if(!selectedImage){
-    alert("画像を選択してください");
-    return;
-  }
-
-  const text =
-    await extractTextFromImage(selectedImage);
-
-  console.log(text);
-
-}
-
-  showScreen("screen2");
-
-  setTimeout(()=>{
-    showScreen("screen3");
-  },1500);
-}
-
+/* 画像選択 */
 document
 .getElementById("imageInput")
 .addEventListener("change", function(){
 
-  const file = this.files[0];
+  selectedImage = this.files[0];
 
-  if(!file) return;
+  if(!selectedImage) return;
 
   const reader = new FileReader();
 
@@ -48,5 +31,42 @@ document
     preview.style.display = "block";
   };
 
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(selectedImage);
+
 });
+
+/* 解析開始 */
+async function nextFlow(){
+
+  if(!selectedImage){
+
+    alert("画像を選択してください");
+
+    return;
+  }
+
+  showScreen("screen2");
+
+  try{
+
+    const text =
+      await extractTextFromImage(selectedImage);
+
+    console.log(text);
+
+    setTimeout(()=>{
+
+      showScreen("screen3");
+
+    },1500);
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("OCR解析に失敗しました");
+
+    showScreen("screen1");
+  }
+
+}
