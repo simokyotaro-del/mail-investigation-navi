@@ -8,9 +8,16 @@ function showScreen(id){
 
 /* フロー */
 function nextFlow(){
-  showScreen('screen2');
+  const file = document.getElementById("imageInput").files[0];
+
+  if (!file){
+    alert("画像を選択してください");
+    return;
+  }
+
+  showScreen("screen2");
 
   setTimeout(()=>{
-    showScreen('screen3');
-  }, 1500);
+    showScreen("screen3");
+  },1500);
 }
