@@ -1,3 +1,5 @@
+let selectedImage = null;
+
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>{
     s.classList.remove('active');
@@ -9,8 +11,12 @@ function showScreen(id){
 function nextFlow(){
 
   const file =
-    document.getElementById("imageInput").files[0];
+    document.getElementById("imageInput")
+.addEventListener("change", function(e){
 
+  selectedImage = e.target.files[0];
+
+});
   if(!file){
     alert("スクリーンショットを選択してください");
     return;
