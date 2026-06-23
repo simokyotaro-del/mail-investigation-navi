@@ -18,9 +18,9 @@ async function nextFlow(){
   showScreen("screen2");
 
   const text =
-    await extractTextFromImage(selectedImage);
+  await extractTextFromImage(selectedImage);
 
-  console.log(text);
+document.getElementById("headerInput").value = text;
 
   setTimeout(()=>{
     showScreen("screen3");
