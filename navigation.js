@@ -43,6 +43,7 @@ setTimeout(()=>{
   }
 
 },1500);
+}
 
 document
 .getElementById("imageInput")
