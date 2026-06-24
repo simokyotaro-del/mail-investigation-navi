@@ -22,28 +22,29 @@ async function nextFlow(){
 
   document.getElementById("headerInput").value = text;
 
-const lowerText = text.toLowerCase();
+  const lowerText = text.toLowerCase();
 
-const looksLikeHeader =
-  lowerText.includes("authentication-results") ||
-  lowerText.includes("received:") ||
-  lowerText.includes("return-path:") ||
-  lowerText.includes("message-id:");
+  const looksLikeHeader =
+    lowerText.includes("authentication-results") ||
+    lowerText.includes("received:") ||
+    lowerText.includes("return-path:") ||
+    lowerText.includes("message-id:");
 
-setTimeout(()=>{
+  setTimeout(()=>{
 
-  if(looksLikeHeader){
+    if(looksLikeHeader){
 
-    analyzeHeader();
+      analyzeHeader();
 
-  }else{
+    }else{
 
-    showScreen("screen4");
+      showScreen("screen4");
 
-  }
+    }
 
-},1500);
-}
+  },1500);
+
+} 
 
 document
 .getElementById("imageInput")
@@ -64,6 +65,7 @@ document
 
     preview.src = e.target.result;
     preview.style.display = "block";
+
   };
 
   reader.readAsDataURL(file);
