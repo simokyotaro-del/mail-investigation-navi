@@ -18,13 +18,16 @@ async function nextFlow(){
   showScreen("screen2");
 
   const text =
-  await extractTextFromImage(selectedImage);
+    await extractTextFromImage(selectedImage);
 
-document.getElementById("headerInput").value = text;
+  document.getElementById("headerInput").value = text;
 
   setTimeout(()=>{
-    showScreen("screen3");
+
+    analyzeHeader();
+
   },1500);
+
 }
 
 document
