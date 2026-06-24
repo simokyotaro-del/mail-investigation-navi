@@ -22,13 +22,27 @@ async function nextFlow(){
 
   document.getElementById("headerInput").value = text;
 
-  setTimeout(()=>{
+const lowerText = text.toLowerCase();
+
+const looksLikeHeader =
+  lowerText.includes("authentication-results") ||
+  lowerText.includes("received:") ||
+  lowerText.includes("return-path:") ||
+  lowerText.includes("message-id:");
+
+setTimeout(()=>{
+
+  if(looksLikeHeader){
 
     analyzeHeader();
 
-  },1500);
+  }else{
 
-}
+    showScreen("screen4");
+
+  }
+
+},1500);
 
 document
 .getElementById("imageInput")
