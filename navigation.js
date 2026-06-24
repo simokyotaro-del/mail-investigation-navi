@@ -24,6 +24,34 @@ async function nextFlow(){
 
   const lowerText = text.toLowerCase();
 
+  let mailApp = "不明";
+
+if (
+  lowerText.includes("gmail") ||
+  lowerText.includes("google")
+){
+  mailApp = "Gmail";
+}
+else if (
+  lowerText.includes("outlook") ||
+  lowerText.includes("microsoft")
+){
+  mailApp = "Outlook";
+}
+else if (
+  lowerText.includes("yahoo")
+){
+  mailApp = "Yahooメール";
+}
+else if (
+  lowerText.includes("icloud") ||
+  lowerText.includes("apple")
+){
+  mailApp = "Apple Mail";
+}
+
+console.log("判定アプリ:", mailApp);
+
   const looksLikeHeader =
     lowerText.includes("authentication-results") ||
     lowerText.includes("received:") ||
