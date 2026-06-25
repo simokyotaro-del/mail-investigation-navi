@@ -41,11 +41,15 @@
 
 <!-- 画面3 -->
 <div id="screen3" class="screen">
-  <h1>アプリ判定</h1>
-  <p>Gmailですか？</p>
+  <h1>メールアプリ判定</h1>
 
-  <button onclick="showScreen('screen4')">はい</button>
-  <button onclick="showScreen('screen4')">いいえ</button>
+  <p id="appResult">
+    判定中...
+  </p>
+
+  <button onclick="showScreen('screen4')">
+    続行
+  </button>
 </div>
 
 <!-- 画面4 -->
