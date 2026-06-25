@@ -50,7 +50,8 @@ else if (
   mailApp = "Apple Mail";
 }
 
-console.log("判定アプリ:", mailApp);
+document.getElementById("appResult").innerText =
+  mailApp + " と推定しました";
 
   const looksLikeHeader =
     lowerText.includes("authentication-results") ||
