@@ -61,17 +61,9 @@ document.getElementById("appResult").innerText =
 
   setTimeout(()=>{
 
-    if(looksLikeHeader){
+  showScreen("screen3");
 
-      analyzeHeader();
-
-    }else{
-
-      showScreen("screen4");
-
-    }
-
-  },1500);
+},1500);
 
 } 
 
