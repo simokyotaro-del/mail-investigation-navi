@@ -50,8 +50,42 @@ else if (
   mailApp = "Apple Mail";
 }
 
+let guide = "";
+
+if(mailApp === "Gmail"){
+
+  guide =
+`Gmail と推定しました
+
+取得方法
+1. メールを開く
+2. ︙を押す
+3. メッセージのソースを表示
+4. 全文コピー`;
+
+}
+else if(mailApp === "Outlook"){
+
+  guide =
+`Outlook と推定しました
+
+取得方法
+1. メールを開く
+2. その他操作
+3. メッセージソース表示`;
+
+}
+else{
+
+  guide =
+`メールアプリを特定できませんでした
+
+ヘッダー取得方法を確認してください`;
+
+}
+
 document.getElementById("appResult").innerText =
-  mailApp + " と推定しました";
+  guide;
 
   const looksLikeHeader =
     lowerText.includes("authentication-results") ||
