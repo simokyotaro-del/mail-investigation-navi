@@ -1,3 +1,5 @@
+console.log("navigation.js 最新版");
+
 let selectedImage = null;
 
 function showScreen(id){
