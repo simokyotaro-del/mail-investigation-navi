@@ -1,14 +1,30 @@
 function detectUrls(text){
 
+  let results = [];
+
+  // https:// や http://
   const urlRegex =
-    /(https?:\/\/[^\s]+)|(www\.[^\s]+)/gi;
+    /https?:\/\/[^\s]+/gi;
 
-  const urls = text.match(urlRegex);
+  // www.
+  const wwwRegex =
+    /www\.[^\s]+/gi;
 
-  if(!urls){
-    return [];
-  }
+  // ドメインだけ
+  const domainRegex =
+    /\b[a-zA-Z0-9.-]+\.(com|net|org|jp|co\.jp|ne\.jp|xyz|info|biz|cc|io)\b/gi;
 
-  return urls;
+  const urlMatches = text.match(urlRegex) || [];
+  const wwwMatches = text.match(wwwRegex) || [];
+  const domainMatches = text.match(domainRegex) || [];
+
+  results = [
+    ...urlMatches,
+    ...wwwMatches,
+    ...domainMatches
+  ];
+
+  // 重複削除
+  return [...new Set(results)];
 
 }
