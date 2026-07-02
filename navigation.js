@@ -1,15 +1,70 @@
-const mailApp = detectMailApp(text);
+let selectedImage = null;
 
-const guide = createMailGuide(mailApp);
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>{
+    s.classList.remove("active");
+  });
 
-const suspiciousWords = detectDangerWords(text);
+  document.getElementById(id).classList.add("active");
+}
 
-document.getElementById("appResult").innerText = guide;
+async function nextFlow(){
 
-if(suspiciousWords.length > 0){
+  if(!selectedImage){
+    alert("画像を選択してください");
+    return;
+  }
 
-  document.getElementById("appResult").innerText +=
-    "\n\n⚠ 注意ワード検出\n" +
-    suspiciousWords.join("、");
+  showScreen("screen2");
+
+  const text = await extractTextFromImage(selectedImage);
+
+  document.getElementById("headerInput").value = text;
+
+  // メールアプリ判定
+  const mailApp = detectMailApp(text);
+  const guide = createMailGuide(mailApp);
+
+  // 危険ワード検出
+  const suspiciousWords = detectDangerWords(text);
+
+  document.getElementById("appResult").innerText = guide;
+
+  if(suspiciousWords.length > 0){
+
+    document.getElementById("appResult").innerText +=
+      "\n\n⚠ 注意ワード検出\n" +
+      suspiciousWords.join("、");
+
+  }
+
+  setTimeout(()=>{
+    showScreen("screen3");
+  },1500);
 
 }
+
+document
+.getElementById("imageInput")
+.addEventListener("change",function(){
+
+  const file = this.files[0];
+
+  if(!file) return;
+
+  selectedImage = file;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const preview = document.getElementById("preview");
+
+    preview.src = e.target.result;
+    preview.style.display = "block";
+
+  };
+
+  reader.readAsDataURL(file);
+
+});
