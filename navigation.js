@@ -87,6 +87,15 @@ const brands = detectBrands(text);
     });
 
   }
+  if(brands.length > 0){
+
+  resultText +=
+    "\n\n🏢 ブランド検出\n";
+
+  resultText +=
+    brands.join("、");
+
+}
 
   resultText +=
     `\n\n📊 現在の危険度スコア：${riskScore}`;
