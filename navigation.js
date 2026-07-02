@@ -39,6 +39,9 @@ async function nextFlow(){
   // URL危険判定
   const urlRisks = detectUrlRisks(urls);
 
+  // ブランド検出
+const brands = detectBrands(text);
+
   // 危険度計算
   const riskScore = calculateRiskScore({
 
