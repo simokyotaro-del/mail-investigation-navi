@@ -25,22 +25,33 @@ async function nextFlow(){
   const mailApp = detectMailApp(text);
   const guide = createMailGuide(mailApp);
 
-  // 危険ワード検出
-  const suspiciousWords = detectDangerWords(text);
+ // 危険ワード検出
+const suspiciousWords = detectDangerWords(text);
 
-  document.getElementById("appResult").innerText = guide;
+// URL検出
+const urls = detectUrls(text);
 
-  if(suspiciousWords.length > 0){
+document.getElementById("appResult").innerText = guide;
 
-    document.getElementById("appResult").innerText +=
-      "\n\n⚠ 注意ワード検出\n" +
-      suspiciousWords.join("、");
+if(suspiciousWords.length > 0){
 
-  }
+  document.getElementById("appResult").innerText +=
+    "\n\n⚠ 注意ワード検出\n" +
+    suspiciousWords.join("、");
 
-  setTimeout(()=>{
-    showScreen("screen3");
-  },1500);
+}
+
+if(urls.length > 0){
+
+  document.getElementById("appResult").innerText +=
+    "\n\n🔗 URL検出\n" +
+    urls.join("\n");
+
+}
+
+setTimeout(()=>{
+  showScreen("screen3");
+},1500);
 
 }
 
