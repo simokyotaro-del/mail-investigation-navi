@@ -1,22 +1,27 @@
 let selectedImage = null;
 
 function showScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>{
-    s.classList.remove("active");
+
+  document.querySelectorAll(".screen").forEach(screen=>{
+    screen.classList.remove("active");
   });
 
   document.getElementById(id).classList.add("active");
+
 }
 
 async function nextFlow(){
 
   if(!selectedImage){
+
     alert("画像を選択してください");
     return;
+
   }
 
   showScreen("screen2");
 
+  // OCR
   const text = await extractTextFromImage(selectedImage);
 
   document.getElementById("headerInput").value = text;
@@ -25,33 +30,71 @@ async function nextFlow(){
   const mailApp = detectMailApp(text);
   const guide = createMailGuide(mailApp);
 
- // 危険ワード検出
-const suspiciousWords = detectDangerWords(text);
+  // 危険ワード検出
+  const suspiciousWords = detectDangerWords(text);
 
-// URL検出
-const urls = detectUrls(text);
+  // URL検出
+  const urls = detectUrls(text);
 
-document.getElementById("appResult").innerText = guide;
+  // URL危険判定
+  const urlRisks = detectUrlRisks(urls);
 
-if(suspiciousWords.length > 0){
+  // 危険度計算
+  const riskScore = calculateRiskScore({
 
-  document.getElementById("appResult").innerText +=
-    "\n\n⚠ 注意ワード検出\n" +
-    suspiciousWords.join("、");
+    dangerWords: suspiciousWords,
 
-}
+    urls: urls,
 
-if(urls.length > 0){
+    urlRisks: urlRisks
 
-  document.getElementById("appResult").innerText +=
-    "\n\n🔗 URL検出\n" +
-    urls.join("\n");
+  });
 
-}
+  console.log("危険度:", riskScore);
 
-setTimeout(()=>{
-  showScreen("screen3");
-},1500);
+  // 画面表示
+  let resultText = guide;
+
+  if(suspiciousWords.length > 0){
+
+    resultText +=
+      "\n\n⚠ 注意ワード検出\n" +
+      suspiciousWords.join("、");
+
+  }
+
+  if(urls.length > 0){
+
+    resultText +=
+      "\n\n🔗 URL検出\n" +
+      urls.join("\n");
+
+  }
+
+  if(urlRisks.length > 0){
+
+    resultText +=
+      "\n\n🚨 URL危険判定";
+
+    urlRisks.forEach(risk=>{
+
+      resultText +=
+        `\n${risk.url}（${risk.level}：${risk.reason}）`;
+
+    });
+
+  }
+
+  resultText +=
+    `\n\n📊 現在の危険度スコア：${riskScore}`;
+
+  document.getElementById("appResult").innerText = resultText;
+
+  setTimeout(()=>{
+
+    showScreen("screen3");
+
+  },1500);
 
 }
 
@@ -72,6 +115,7 @@ document
     const preview = document.getElementById("preview");
 
     preview.src = e.target.result;
+
     preview.style.display = "block";
 
   };
