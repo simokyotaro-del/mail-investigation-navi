@@ -42,6 +42,8 @@ async function nextFlow(){
   // ブランド検出
 const brands = detectBrands(text);
 
+const brandRisks = detectBrandRisks(brands, urls);
+
   // 危険度計算
   const riskScore = calculateRiskScore({
 
@@ -94,6 +96,20 @@ const brands = detectBrands(text);
 
   resultText +=
     brands.join("、");
+
+}
+
+  if(brandRisks.length > 0){
+
+  resultText +=
+    "\n\n🚨 ブランド偽装の可能性\n";
+
+  brandRisks.forEach(risk=>{
+
+    resultText +=
+      `\n${risk.brand} → ${risk.url}`;
+
+  });
 
 }
 
