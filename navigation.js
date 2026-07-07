@@ -138,6 +138,23 @@ const brandRisks =
   resultText +=
     `\n\n📊 現在の危険度スコア：${riskScore}`;
 
+  if(findings.length > 0){
+
+  resultText +=
+    "\n\n━━━━━━━━━━━━";
+
+  resultText +=
+    "\n検出された不審点";
+
+  findings.forEach((finding,index)=>{
+
+    resultText +=
+      `\n${index+1}. ${finding}`;
+
+  });
+
+}
+
   document.getElementById("appResult").innerText = resultText;
 
   setTimeout(()=>{
