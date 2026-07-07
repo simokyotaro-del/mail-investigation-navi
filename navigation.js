@@ -42,7 +42,18 @@ async function nextFlow(){
   // ブランド検出
 const brands = detectBrands(text);
 
-const brandRisks = detectBrandRisks(brands, urls);
+const mailAddresses =
+  detectMailAddresses(text);
+
+const domains =
+  extractDomains(mailAddresses);
+
+const brandRisks =
+  detectBrandRisks(
+    brands,
+    urls,
+    domains
+  );
 
   // 危険度計算
   const riskScore = calculateRiskScore({
