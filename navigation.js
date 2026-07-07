@@ -66,6 +66,17 @@ const brandRisks =
 
   });
 
+  const findings =
+  generateFindings({
+
+    brandRisks,
+
+    urlRisks,
+
+    dangerWords:suspiciousWords
+
+  });
+
   console.log("危険度:", riskScore);
 
   // 画面表示
