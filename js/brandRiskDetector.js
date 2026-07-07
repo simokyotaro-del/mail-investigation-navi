@@ -1,4 +1,4 @@
-function detectBrandRisks(brands, urls){
+function detectBrandRisks(brands, urls, domains){
 
   const officialDomains = {
 
@@ -36,24 +36,40 @@ function detectBrandRisks(brands, urls){
 
   brands.forEach(brand=>{
 
-    const domains = officialDomains[brand];
+    const official = officialDomains[brand];
 
-    if(!domains) return;
+    if(!official) return;
 
-    urls.forEach(url=>{
+    const targets = [...urls, ...domains];
 
-      const lower = url.toLowerCase();
+    targets.forEach(target=>{
 
-      const isOfficial = domains.some(domain=>
-        lower.includes(domain)
-      );
+      const lower = target.toLowerCase();
+
+      // ブランド名が含まれないものは無視
+      if(
+        !lower.includes(
+          brand.toLowerCase()
+        )
+      ){
+        return;
+      }
+
+      const isOfficial =
+        official.some(domain=>
+          lower.includes(domain)
+        );
 
       if(!isOfficial){
 
         risks.push({
+
           brand:brand,
-          url:url,
+
+          target:target,
+
           reason:"公式ドメインではありません"
+
         });
 
       }
